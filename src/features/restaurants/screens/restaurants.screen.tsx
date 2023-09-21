@@ -1,56 +1,47 @@
 import React, { useState } from "react";
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-  Platform,
-  StatusBar,
-  Appearance,
-} from "react-native";
+import { SafeAreaView, StatusBar, Appearance } from "react-native";
+import styled from "styled-components/native";
 import { Searchbar } from "react-native-paper";
 import { RestaurantInfoCard } from "../components";
+import { Restaurant } from "../../../types";
 
 const colorScheme = Appearance.getColorScheme();
+
+const SafeArea = styled(SafeAreaView)`
+  flex: 1;
+  ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
+  background-color: ${colorScheme === "dark" ? "black" : "white"};
+`;
+const SearchContainer = styled.View`
+  flex-direction: row;
+  padding: ${({ theme }) => theme.space[3]};
+`;
+const Search = styled(Searchbar)`
+  display: flex;
+  flex-grow: 1;
+`;
+const List = styled.View`
+  flex: 1;
+  padding: ${({ theme }) => theme.space[3]};
+`;
 
 export default function RestaurantsScreen() {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.search}>
-        <Searchbar
+    <SafeArea>
+      <SearchContainer>
+        <Search
           value={searchQuery}
           onChangeText={setSearchQuery}
           placeholder="Search"
-          style={styles.searchBar}
           icon="heart-outline"
         />
-      </View>
+      </SearchContainer>
 
-      <View style={styles.list}>
-        <RestaurantInfoCard />
-      </View>
-    </SafeAreaView>
+      <List>
+        <RestaurantInfoCard restaurant={{} as Restaurant} />
+      </List>
+    </SafeArea>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    backgroundColor: colorScheme === "dark" ? "black" : "white",
-  },
-  search: {
-    padding: 16,
-    flexDirection: "row",
-    backgroundColor: "green",
-  },
-  searchBar: {
-    flex: 1,
-  },
-  list: {
-    padding: 16,
-    flex: 1,
-    backgroundColor: "blue",
-  },
-});
