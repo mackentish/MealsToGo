@@ -1,7 +1,7 @@
 import styled, { DefaultTheme } from "styled-components/native";
 
 interface TextProps {
-  variant: "body" | "label" | "caption" | "hint" | "error";
+  variant: keyof typeof variants;
 }
 
 const defaultTextStyles = (theme: DefaultTheme) => `
