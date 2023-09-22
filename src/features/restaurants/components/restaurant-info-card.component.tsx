@@ -41,7 +41,12 @@ export default function RestaurantInfoCard({
         <Section>
           <Rating>
             {ratingArray.map((r, i) => (
-              <SvgXml key={i} xml={star} width={20} height={20} />
+              <SvgXml
+                key={`star-${name}-${rating}-${i}`}
+                xml={star}
+                width={20}
+                height={20}
+              />
             ))}
           </Rating>
           <SectionEnd>
