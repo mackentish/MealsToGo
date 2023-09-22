@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Text } from "react-native";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { RestaurantsScreen } from "./src/features/restaurants";
@@ -13,11 +13,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeArea } from "./src/components/utility";
 import { Ionicons, Feather } from "@expo/vector-icons";
-import RestaurantsContext from "./src/services/restaurants/restaurants.context";
-import {
-  restaurantsRequest,
-  restaurantsTransform,
-} from "./src/services/restaurants/restaurants.service";
+import { RestaurantsContextProvider } from "./src/services/restaurants/restaurants.context";
+import { LocationContextProvider } from "./src/services/location/location.context";
 
 const Tab = createBottomTabNavigator();
 
@@ -55,60 +52,40 @@ export default function App() {
     Lato_400Regular,
   });
 
-  const [restaurants, setRestaurants] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const retrieveRestaurants = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      restaurantsRequest()
-        .then(restaurantsTransform)
-        .then((results) => {
-          setIsLoading(false);
-          setRestaurants(results);
-        })
-        .catch((e) => {
-          setIsLoading(false);
-          setError(e);
-        });
-    }, 2000);
-  };
-  useEffect(() => {
-    retrieveRestaurants();
-  }, []);
-
   if (!oswaldLoaded || !latoLoaded) return null;
+
   return (
     <ThemeProvider theme={theme}>
-      <RestaurantsContext.Provider value={{ restaurants, isLoading, error }}>
-        <NavigationContainer>
-          <Tab.Navigator
-            screenOptions={{
-              headerShown: false,
-              tabBarActiveTintColor: theme.colors.brand.secondary,
-              tabBarInactiveTintColor: theme.colors.brand.muted,
-              tabBarStyle: { backgroundColor: theme.colors.brand.primary },
-            }}
-          >
-            <Tab.Screen
-              name="Restaurants"
-              component={RestaurantsScreen}
-              options={{ tabBarIcon: RestaurantsIcon }}
-            />
-            <Tab.Screen
-              name="Map"
-              component={MapScreen}
-              options={{ tabBarIcon: MapIcon }}
-            />
-            <Tab.Screen
-              name="Settings"
-              component={SettingsScreen}
-              options={{ tabBarIcon: SettingsIcon }}
-            />
-          </Tab.Navigator>
-        </NavigationContainer>
-      </RestaurantsContext.Provider>
+      <LocationContextProvider>
+        <RestaurantsContextProvider>
+          <NavigationContainer>
+            <Tab.Navigator
+              screenOptions={{
+                headerShown: false,
+                tabBarActiveTintColor: theme.colors.brand.secondary,
+                tabBarInactiveTintColor: theme.colors.brand.muted,
+                tabBarStyle: { backgroundColor: theme.colors.brand.primary },
+              }}
+            >
+              <Tab.Screen
+                name="Restaurants"
+                component={RestaurantsScreen}
+                options={{ tabBarIcon: RestaurantsIcon }}
+              />
+              <Tab.Screen
+                name="Map"
+                component={MapScreen}
+                options={{ tabBarIcon: MapIcon }}
+              />
+              <Tab.Screen
+                name="Settings"
+                component={SettingsScreen}
+                options={{ tabBarIcon: SettingsIcon }}
+              />
+            </Tab.Navigator>
+          </NavigationContainer>
+        </RestaurantsContextProvider>
+      </LocationContextProvider>
       <ExpoStatusBar style="auto" />
     </ThemeProvider>
   );

@@ -8,7 +8,7 @@ import {
   Spacer,
   RestaurantList,
 } from "./restaurants.styles";
-import RestaurantsContext from "../../../services/restaurants/restaurants.context";
+import { RestaurantsContext } from "../../../services/restaurants/restaurants.context";
 import { useTheme } from "styled-components";
 
 export default function RestaurantsScreen() {
