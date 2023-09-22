@@ -5,8 +5,14 @@ import { CenteredView, SafeArea } from "../../../components/utility";
 import { Spacer, RestaurantList } from "./restaurants.styles";
 import { RestaurantsContext } from "../../../services/restaurants/restaurants.context";
 import { useTheme } from "styled-components";
+import { NavigationProp } from "@react-navigation/native";
+import { TouchableOpacity } from "react-native";
 
-export default function RestaurantsScreen() {
+type Props = {
+  navigation: NavigationProp<any>;
+};
+
+export default function RestaurantsScreen({ navigation }: Props) {
   const { restaurants, isLoading, error } = useContext(RestaurantsContext);
   const theme = useTheme();
 
@@ -25,7 +31,13 @@ export default function RestaurantsScreen() {
       {!isLoading && !error && (
         <RestaurantList
           data={restaurants}
-          renderItem={({ item }) => <RestaurantInfoCard restaurant={item} />}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("RestaurantDetail")}
+            >
+              <RestaurantInfoCard restaurant={item} />
+            </TouchableOpacity>
+          )}
           ItemSeparatorComponent={Spacer}
           keyExtractor={(item) => item.name}
         />
