@@ -1,10 +1,19 @@
 import React, { createContext, useEffect, useState } from "react";
 import { locationRequest, locationTransform } from "./location.service";
 
+type locationType = {
+  lat: string;
+  lng: string;
+  viewport: {
+    northeast: { lat: number; lng: number };
+    southwest: { lat: number; lng: number };
+  };
+};
+
 type ContextType = {
   isLoading: boolean;
   error: any;
-  location: { lat: string; lng: string } | undefined;
+  location: locationType | undefined;
   search: (searchKeyword: string) => void;
   keyword: string;
 };
@@ -12,9 +21,7 @@ export const LocationContext = createContext<ContextType>({} as ContextType);
 
 export const LocationContextProvider = ({ children }: any) => {
   const [keyword, setKeyword] = useState("San Francisco");
-  const [location, setLocation] = useState<
-    { lat: string; lng: string } | undefined
-  >(undefined);
+  const [location, setLocation] = useState<locationType | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<any>(undefined);
 

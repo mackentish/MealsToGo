@@ -6,19 +6,12 @@ import theme from "../theme";
 import { SafeArea } from "../../components/utility";
 import { Ionicons, Feather } from "@expo/vector-icons";
 import RestaurantsNavigator from "./restaurants.navigator";
+import { MapScreen } from "../../features/map";
 
 function SettingsScreen() {
   return (
     <SafeArea>
       <Text>Settings!</Text>
-    </SafeArea>
-  );
-}
-
-function MapScreen() {
-  return (
-    <SafeArea>
-      <Text>Map!</Text>
     </SafeArea>
   );
 }

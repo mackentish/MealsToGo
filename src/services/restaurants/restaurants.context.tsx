@@ -4,9 +4,10 @@ import {
   restaurantsTransform,
 } from "./restaurants.service";
 import { LocationContext } from "../location/location.context";
+import { Restaurant } from "../../types";
 
 type ContextType = {
-  restaurants: any[];
+  restaurants: Restaurant[];
   isLoading: boolean;
   error: any;
 };
