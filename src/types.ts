@@ -1,4 +1,5 @@
 export type Restaurant = {
+  placeId: string;
   name: string;
   icon: string;
   photos: string[];
