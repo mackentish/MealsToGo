@@ -4,6 +4,7 @@ import {
   AccountBackground,
   AccountContainer,
   AccountOpacity,
+  Title,
 } from "../components/account.styles";
 import colors from "../../../infrastructure/theme/colors";
 
@@ -11,6 +12,7 @@ export default function AccountScreen({ navigation }: any) {
   return (
     <AccountBackground source={{}}>
       <AccountOpacity />
+      <Title>Meals To Go</Title>
       <AccountContainer>
         <Button
           icon="lock-open-outline"

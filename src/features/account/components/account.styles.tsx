@@ -1,4 +1,6 @@
 import styled from "styled-components/native";
+import { TextInput } from "react-native-paper";
+import { Text } from "../../../components/typography";
 
 export const AccountBackground = styled.ImageBackground.attrs({
   source: require("../../../../assets/home_bg.jpg"),
@@ -21,4 +23,12 @@ export const AccountContainer = styled.View`
   margin-top: ${({ theme }) => theme.space[2]};
   flex-direction: column;
   gap: ${({ theme }) => theme.space[3]};
+`;
+
+export const AuthInput = styled(TextInput)`
+  width: 300px;
+`;
+
+export const Title = styled(Text)`
+  font-size: 30px;
 `;
