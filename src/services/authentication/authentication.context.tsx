@@ -1,5 +1,6 @@
 import React, { useState, createContext, ReactNode } from "react";
 import { loginRequest, registerRequest } from "./authentication.service";
+import { getAuth } from "firebase/auth";
 
 type ContextType = {
   user: any;
@@ -11,6 +12,7 @@ type ContextType = {
     password: string,
     repeatedPassword: string
   ) => void;
+  onLogout: () => void;
 };
 
 export const AuthenticationContext = createContext<ContextType>(
@@ -61,6 +63,11 @@ export const AuthenticationContextProvider = ({
       });
   };
 
+  const onLogout = () => {
+    setUser(undefined);
+    getAuth().signOut();
+  };
+
   return (
     <AuthenticationContext.Provider
       value={{
@@ -69,6 +76,7 @@ export const AuthenticationContextProvider = ({
         error,
         onLogin,
         onRegister,
+        onLogout,
       }}
     >
       {children}
