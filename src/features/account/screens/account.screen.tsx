@@ -24,7 +24,7 @@ export default function AccountScreen({ navigation }: any) {
           Login
         </Button>
         <Button
-          icon="lock-open-outline"
+          icon="email"
           buttonColor={colors.brand.secondary}
           textColor={colors.brand.primary}
           mode="contained"
