@@ -43,7 +43,7 @@ export const FavoritesContextProvider = ({
 
   const remove = (restaurant: Restaurant) => {
     const newFavorites = favorites.filter(
-      (x) => x.placeId !== restaurant.placeId
+      (x) => x.placeId !== restaurant.placeId,
     );
     setFavorites(newFavorites);
   };
