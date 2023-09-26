@@ -7,7 +7,7 @@ import {
   Title,
 } from "../components/account.styles";
 import { Text } from "../../../components/typography";
-import { Button } from "react-native-paper";
+import { Button, ActivityIndicator } from "react-native-paper";
 import colors from "../../../infrastructure/theme/colors";
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
 
@@ -15,7 +15,7 @@ export default function RegisterScreen({ navigation }: { navigation: any }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
-  const { onRegister, error } = useContext(AuthenticationContext);
+  const { onRegister, error, isLoading } = useContext(AuthenticationContext);
 
   return (
     <AccountBackground source={{}}>
@@ -47,15 +47,19 @@ export default function RegisterScreen({ navigation }: { navigation: any }) {
           onChangeText={(p) => setRepeatedPassword(p)}
         />
         {error && <Text variant="error">{error}</Text>}
-        <Button
-          icon="email"
-          buttonColor={colors.brand.primary}
-          textColor={colors.brand.secondary}
-          mode="contained"
-          onPress={() => onRegister(email, password, repeatedPassword)}
-        >
-          Register
-        </Button>
+        {isLoading ? (
+          <ActivityIndicator animating={true} color={colors.brand.primary} />
+        ) : (
+          <Button
+            icon="lock-open-outline"
+            buttonColor={colors.brand.primary}
+            textColor={colors.brand.secondary}
+            mode="contained"
+            onPress={() => onRegister(email, password, repeatedPassword)}
+          >
+            Register
+          </Button>
+        )}
         <Button
           icon="keyboard-backspace"
           buttonColor={colors.brand.secondary}

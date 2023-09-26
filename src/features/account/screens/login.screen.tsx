@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Button } from "react-native-paper";
+import { Button, ActivityIndicator } from "react-native-paper";
 import {
   AccountBackground,
   AccountOpacity,
@@ -14,7 +14,7 @@ import colors from "../../../infrastructure/theme/colors";
 export default function LoginScreen({ navigation }: { navigation: any }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { onLogin, error } = useContext(AuthenticationContext);
+  const { onLogin, error, isLoading } = useContext(AuthenticationContext);
   return (
     <AccountBackground source={{}}>
       <AccountOpacity />
@@ -37,15 +37,19 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
           onChangeText={(p: string) => setPassword(p)}
         />
         {error && <Text variant="error">{error}</Text>}
-        <Button
-          icon="lock-open-outline"
-          buttonColor={colors.brand.primary}
-          textColor={colors.brand.secondary}
-          mode="contained"
-          onPress={() => onLogin(email, password)}
-        >
-          Login
-        </Button>
+        {isLoading ? (
+          <ActivityIndicator animating={true} color={colors.brand.primary} />
+        ) : (
+          <Button
+            icon="lock-open-outline"
+            buttonColor={colors.brand.primary}
+            textColor={colors.brand.secondary}
+            mode="contained"
+            onPress={() => onLogin(email, password)}
+          >
+            Login
+          </Button>
+        )}
         <Button
           icon="keyboard-backspace"
           buttonColor={colors.brand.secondary}
