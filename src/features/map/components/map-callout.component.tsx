@@ -3,5 +3,5 @@ import { CompactRestaurantInfo } from "../../../components/restaurant";
 import { Restaurant } from "../../../types";
 
 export default function MapCallout({ restaurant }: { restaurant: Restaurant }) {
-  return <CompactRestaurantInfo restaurant={restaurant} />;
+  return <CompactRestaurantInfo restaurant={restaurant} isMap />;
 }

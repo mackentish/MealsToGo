@@ -11,7 +11,13 @@ export const SearchBar = styled(Searchbar)`
   display: flex;
   flex-grow: 1;
 `;
-export default function Search() {
+export default function Search({
+  onFavoritesToggle,
+  isFavoritesToggled,
+}: {
+  onFavoritesToggle: () => void;
+  isFavoritesToggled: boolean;
+}) {
   const { keyword, search } = useContext(LocationContext);
   const [searchQuery, setSearchQuery] = useState(keyword);
 
@@ -24,6 +30,8 @@ export default function Search() {
       <SearchBar
         value={searchQuery}
         onChangeText={setSearchQuery}
+        icon={isFavoritesToggled ? "heart" : "heart-outline"}
+        onIconPress={onFavoritesToggle}
         onSubmitEditing={() => {
           search(searchQuery);
         }}

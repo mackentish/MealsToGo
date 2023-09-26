@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import WebView from "react-native-webview";
 import { Platform } from "react-native";
 
-import { Text } from "../typography/text.component";
+import { Text } from "../typography";
 import { Restaurant } from "../../types";
 
 const CompactImage = styled.Image`
@@ -24,14 +24,16 @@ const Item = styled.View`
   align-items: center;
 `;
 
-export const CompactRestaurantInfo = ({
+export default function CompactRestaurantInfo({
   restaurant,
+  isMap,
 }: {
   restaurant: Restaurant;
-}) => {
+  isMap?: boolean;
+}) {
   return (
     <Item>
-      {Platform.OS === "android" ? (
+      {Platform.OS === "android" && isMap ? (
         <CompactWebview source={{ uri: restaurant.photos[0] }} />
       ) : (
         <CompactImage source={{ uri: restaurant.photos[0] }} />
@@ -41,4 +43,4 @@ export const CompactRestaurantInfo = ({
       </Text>
     </Item>
   );
-};
+}
