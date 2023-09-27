@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { ActivityIndicator } from "react-native-paper";
 import { RestaurantInfoCard, Search } from "../components";
 import { CenteredView, SafeArea } from "../../../components/utility";
+import { FadeInView } from "../../../components/animations";
 import { Spacer, RestaurantList } from "./restaurants.styles";
 import { RestaurantsContext } from "../../../services/restaurants/restaurants.context";
 import { useTheme } from "styled-components";
@@ -38,11 +39,13 @@ export default function RestaurantsScreen({ navigation }: Props) {
         <RestaurantList
           data={restaurants}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate("RestaurantDetail")}
-            >
-              <RestaurantInfoCard restaurant={item} />
-            </TouchableOpacity>
+            <FadeInView>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("RestaurantDetail")}
+              >
+                <RestaurantInfoCard restaurant={item} />
+              </TouchableOpacity>
+            </FadeInView>
           )}
           ItemSeparatorComponent={Spacer}
           keyExtractor={(item) => item.name}
