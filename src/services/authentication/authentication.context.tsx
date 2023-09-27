@@ -3,7 +3,7 @@ import { loginRequest, registerRequest } from "./authentication.service";
 import { getAuth } from "firebase/auth";
 
 type ContextType = {
-  user: any;
+  user: { email: string };
   isLoading: boolean;
   error: string | undefined;
   onLogin: (email: string, password: string) => void;
@@ -32,7 +32,7 @@ export const AuthenticationContextProvider = ({
     setIsLoading(true);
     loginRequest(email, password)
       .then((u) => {
-        setUser(u);
+        setUser(u.user);
         setIsLoading(false);
       })
       .catch((err) => {

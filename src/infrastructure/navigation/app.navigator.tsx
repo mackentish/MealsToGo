@@ -1,22 +1,10 @@
-import React, { useContext } from "react";
-import { Text, Button } from "react-native";
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import theme from "../theme";
-import { SafeArea } from "../../components/utility";
 import { Ionicons, Feather } from "@expo/vector-icons";
 import RestaurantsNavigator from "./restaurants.navigator";
 import { MapScreen } from "../../features/map";
-import { AuthenticationContext } from "../../services/authentication/authentication.context";
-
-function SettingsScreen() {
-  const { onLogout } = useContext(AuthenticationContext);
-  return (
-    <SafeArea>
-      <Text>Settings!</Text>
-      <Button title="Sign Out" color="red" onPress={() => onLogout()} />
-    </SafeArea>
-  );
-}
+import SettingsNavigator from "./settings.navigator";
 
 function RestaurantsIcon({ color }: { color: string }) {
   return <Ionicons name="fast-food-outline" size={24} color={color} />;
@@ -52,7 +40,7 @@ export default function AppNavigator() {
       />
       <Tab.Screen
         name="Settings"
-        component={SettingsScreen}
+        component={SettingsNavigator}
         options={{ tabBarIcon: SettingsIcon }}
       />
     </Tab.Navigator>
